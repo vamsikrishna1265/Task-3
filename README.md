@@ -1,3 +1,6 @@
+live link:https://vamsikrishna1265.github.io/Task-3/
+
+
 The output of this application shows a simple Record Management System built entirely using HTML and CSS with JavaScript for interactivity. At the top of the page, there is a form where the user can enter a Name and an Email to create a new record. When the “Add Record” button is clicked, the information is immediately added to a table displayed below the form. This allows users to see the records they have created in real time.
 
 The table displays all the records in three columns: Name, Email, and Action. The Action column contains a Delete button for each record. When this button is clicked, the corresponding record is removed instantly from the table. This provides a simple way to manage and maintain the list of records without needing to reload the page.
