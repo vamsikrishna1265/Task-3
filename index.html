@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web UI Form - Record Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Record Management System</h1>
+
+    <div class="form-section">
+      <h2>Add New Record</h2>
+      <form id="recordForm">
+        <input type="text" id="name" placeholder="Enter Name" required />
+        <input type="text" id="email" placeholder="Enter Email" required />
+        <button type="submit">Add Record</button>
+      </form>
+    </div>
+
+    <div class="search-section">
+      <input type="text" id="searchInput" placeholder="Search by name..." />
+    </div>
+
+    <div class="records-section">
+      <h2>All Records</h2>
+      <table id="recordsTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="recordsBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("recordForm");
+    const recordsBody = document.getElementById("recordsBody");
+    const searchInput = document.getElementById("searchInput");
+
+    let records = [];
+
+    // Add new record
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      if (name && email) {
+        records.push({ name, email });
+        form.reset();
+        displayRecords();
+      }
+    });
+
+    // Display all records
+    function displayRecords(filteredRecords = records) {
+      recordsBody.innerHTML = "";
+      filteredRecords.forEach((record, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${record.name}</td>
+          <td>${record.email}</td>
+          <td><button class="delete-btn" onclick="deleteRecord(${index})">Delete</button></td>
+        `;
+        recordsBody.appendChild(row);
+      });
+    }
+
+    // Delete record
+    function deleteRecord(index) {
+      records.splice(index, 1);
+      displayRecords();
+    }
+
+    // Search functionality
+    searchInput.addEventListener("input", () => {
+      const searchValue = searchInput.value.toLowerCase();
+      const filtered = records.filter(record =>
+        record.name.toLowerCase().includes(searchValue)
+      );
+      displayRecords(filtered);
+    });
+  </script>
+</body>
+</html>
